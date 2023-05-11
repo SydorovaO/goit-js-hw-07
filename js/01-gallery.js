@@ -1,5 +1,5 @@
 import { galleryItems } from "./gallery-items.js";
-// Change code below this line
+
 const gallery = document.querySelector(".gallery");
 
 function createGalleryItemsMarkup(items) {
@@ -21,20 +21,33 @@ function createGalleryItemsMarkup(items) {
 
 const galleryItemMarkup = createGalleryItemsMarkup(galleryItems);
 gallery.insertAdjacentHTML("beforeend", galleryItemMarkup);
-console.log(galleryItems);
+
+let modal;
 
 gallery.addEventListener("click", onClick);
+
 function onClick(e) {
+  console.log("додає слухача");
   e.preventDefault();
+
   const isIMG = e.target.nodeName === "IMG";
   if (!isIMG) {
     return;
-  } else {
-    const bigIMG = e.target.dataset.source;
-    const instance = basicLightbox.create(`
-    <img src="${bigIMG}">
-   `);
+  }
 
-    instance.show();
+  const imageUrl = e.target.dataset.source;
+  modal = basicLightbox.create(`
+    <img src="${imageUrl}">
+   `);
+  modal.show();
+
+  if (modal.show()) {
+    window.addEventListener("keydown", closeModalOnEscape);
+  }
+}
+
+function closeModalOnEscape(e) {
+  if (e.code === "Escape" && basicLightbox.visible()) {
+    modal.close();
   }
 }
