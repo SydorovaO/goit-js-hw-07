@@ -20,37 +20,21 @@ function createGalleryItemsMarkup(items) {
 }
 
 const galleryItemMarkup = createGalleryItemsMarkup(galleryItems);
-gallery.innerHTML = galleryItemMarkup;
-// const itemsEl = gallery.querySelectorAll(".gallery__item");
-// const linksEl = gallery.querySelectorAll(".gallery__link");
+gallery.insertAdjacentHTML("beforeend", galleryItemMarkup);
+console.log(galleryItems);
 
-console.log(gallery);
-gallery.addEventListener("click", (e) => {
+gallery.addEventListener("click", onClick);
+function onClick(e) {
   e.preventDefault();
-  console.dir(e.target.nodeName);
-  if (e.target.nodeName !== "IMG") {
+  const isIMG = e.target.nodeName === "IMG";
+  if (!isIMG) {
     return;
+  } else {
+    const bigIMG = e.target.dataset.source;
+    const instance = basicLightbox.create(`
+    <img src="${bigIMG}">
+   `);
+
+    instance.show();
   }
-
-  const instance = basicLightbox.create(`
-  <img src="assets/images/image.png" width="800" height="600">
-`);
-
-  instance.show();
-});
-// gallery.addEventListener("click", onClick);
-// function onClick(e) {
-//   console.log(e.target);
-// }
-
-// const instance = basicLightbox.create(`
-//     <img src="assets/images/image.png" width="800" height="600">
-// `)
-
-// instance.show()
-
-// console.log(galleryItems);
-
-//
-// console.log(item);
-const ooo = gallery.querySelectorAll(".gallery__image");
+}
