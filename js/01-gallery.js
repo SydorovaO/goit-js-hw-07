@@ -41,13 +41,14 @@ function onClick(e) {
    `);
   modal.show();
 
-  if (modal.show()) {
-    window.addEventListener("keydown", closeModalOnEscape);
-  }
+  window.addEventListener("keydown", closeModalOnEscape);
 }
 
 function closeModalOnEscape(e) {
-  if (e.code === "Escape" && basicLightbox.visible()) {
+  if (e.code === "Escape") {
     modal.close();
   }
 }
+// if (modal.show()) {
+//   window.addEventListener("keydown", closeModalOnEscape);
+// }
