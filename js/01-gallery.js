@@ -22,12 +22,9 @@ function createGalleryItemsMarkup(items) {
 const galleryItemMarkup = createGalleryItemsMarkup(galleryItems);
 gallery.insertAdjacentHTML("beforeend", galleryItemMarkup);
 
-let modal;
-
 gallery.addEventListener("click", onClick);
 
 function onClick(e) {
-  console.log("додає слухача");
   e.preventDefault();
 
   const isIMG = e.target.nodeName === "IMG";
@@ -36,19 +33,16 @@ function onClick(e) {
   }
 
   const imageUrl = e.target.dataset.source;
-  modal = basicLightbox.create(`
+  const modal = basicLightbox.create(`
     <img src="${imageUrl}">
    `);
   modal.show();
 
   window.addEventListener("keydown", closeModalOnEscape);
-}
 
-function closeModalOnEscape(e) {
-  if (e.code === "Escape") {
-    modal.close();
+  function closeModalOnEscape(e) {
+    if (e.code === "Escape") {
+      modal.close();
+    }
   }
 }
-// if (modal.show()) {
-//   window.addEventListener("keydown", closeModalOnEscape);
-// }
